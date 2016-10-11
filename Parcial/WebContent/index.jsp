@@ -5,8 +5,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="css/estilos.css">
-<script src="js/jquery.min.js"></script>
 </head>
 <body>
  <form action="Login" method="post">
@@ -15,23 +13,10 @@
    <select name="rol" id="rol">
 	<option value="ADMIN">Administrador</option>
 	<option value="USUARIO">Usuario</option>
-	<option value="INVITADO">Invitado</option>
    </select><br><br>
    <button type="submit">Enviar</button>
    <button type="reset">Borrar</button>
 </form>
+<a href="invitado.jsp">Ingresar como invitado</a>
 </body>
-<script type="text/javascript">
-$(document).ready(function(){
-   $('#rol').change(function(){
-	   if(this.value == 'INVITADO'){
-		  $('input').hide();
-		  $('input').prop('required',false);
-	   }else{
-		  $('input').show();
-		  $('input').prop('required',true);
-	   }
-   });
-});   
-</script>
 </html>

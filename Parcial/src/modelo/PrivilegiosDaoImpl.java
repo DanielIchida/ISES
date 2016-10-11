@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pojo.Privilegios;
-import pojo.Usuario;
 
 public class PrivilegiosDaoImpl implements Dao<Privilegios>{
 	
@@ -16,9 +15,9 @@ public class PrivilegiosDaoImpl implements Dao<Privilegios>{
 	Connection conn;
 	ResultSet rs;
 	
-	private String query_insert = "INSERT INTO pprivilegios(crud_usuarios, mis_pedidos, productos, id_usuario) VALUES (?, ?, ?, ?);";
-	private String query_delete = "DELETE FROM privilegios WHERE id_privilegio = ?";
-	private String query_update = "UPDATE privilegios SET crud_usuarios=?, mis_pedidos=?, productos=?, id_usuario=? WHERE id_privilegio = ?";
+	private String query_insert = "INSERT INTO privilegios(crud_usuarios, mis_pedidos, productos, id_usuario) VALUES (?, ?, ?, ?);";
+	private String query_delete = "DELETE FROM privilegios WHERE id_usuario = ?";
+	private String query_update = "UPDATE privilegios SET crud_usuarios=?, mis_pedidos=?, productos=?, id_usuario=? WHERE id_usuario = ?";
 	private String query_select_data = "SELECT * FROM privilegios WHERE id_usuario = ?";
 	private String query_select_all = "SELECT * FROM privilegios";
 	
@@ -76,7 +75,7 @@ public class PrivilegiosDaoImpl implements Dao<Privilegios>{
 			ps.setBoolean(2, t.isMis_pedidos());
 			ps.setBoolean(3, t.isProductos());
 			ps.setInt(4, t.getId_usuario());
-			ps.setInt(4, t.getId_privilegio());
+			ps.setInt(5, t.getId_usuario());
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("Error al actualizar "+e.getMessage());

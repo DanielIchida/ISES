@@ -15,9 +15,9 @@ public class UsuarioDaoImpl implements Dao<Usuario>{
 	Connection conn;
 	ResultSet rs;
 	
-	private String query_insert = "INSERT INTO pusuarios(nombre, password, rol)VALUES ( ?, ?, ?)";
+	private String query_insert = "INSERT INTO usuarios(id_usuario,nombre, password, rol)VALUES ( ? , ? , ? , ?)";
 	private String query_delete = "DELETE FROM usuarios WHERE id_usuario = ?";
-	private String query_update = "UPDATE usuarios SET nombre=?, password=?, rol=? WHERE id_usuario = ?";
+	private String query_update = "UPDATE usuarios SET id_usuario = ? , nombre=?, password=?, rol=? WHERE id_usuario = ?";
 	private String query_select_data = "SELECT * FROM usuarios WHERE id_usuario = ?";
 	private String query_select_all = "SELECT * FROM usuarios";
     private String query_login = "SELECT * FROM usuarios WHERE nombre = ? AND password = ? AND rol = ?";
@@ -36,6 +36,7 @@ public class UsuarioDaoImpl implements Dao<Usuario>{
 				Usuario usuario = new Usuario();
 				usuario.setId_usuario(rs.getInt("id_usuario"));
 				usuario.setNombre(rs.getString("nombre"));
+				usuario.setPassword(rs.getString("password"));
 				usuario.setRol(rs.getString("rol"));
 				usuarios.add(usuario);
 			}
@@ -55,6 +56,7 @@ public class UsuarioDaoImpl implements Dao<Usuario>{
 			if(rs.next()){
 				usuario.setId_usuario(rs.getInt("id_usuario"));
 				usuario.setNombre(rs.getString("nombre"));
+				usuario.setPassword(rs.getString("password"));
 				usuario.setRol(rs.getString("rol"));
 			}else{
 				System.out.println("no exites ningun usuario con ese ID");
@@ -69,10 +71,11 @@ public class UsuarioDaoImpl implements Dao<Usuario>{
 	public void updateData(Usuario t) {
 		try {
 			ps = conn.prepareStatement(query_update);
-			ps.setString(1, t.getNombre());
-			ps.setString(2, t.getPassword());
-			ps.setString(3, t.getRol());
-			ps.setInt(4, t.getId_usuario());
+			ps.setInt(1, t.getId_usuario());
+			ps.setString(2, t.getNombre());
+			ps.setString(3, t.getPassword());
+			ps.setString(4, t.getRol());
+			ps.setInt(5, t.getId_usuario());
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("Error al actualizar "+e.getMessage());
@@ -96,9 +99,10 @@ public class UsuarioDaoImpl implements Dao<Usuario>{
 	public void insert(Usuario t) {
 		try {
 			ps = conn.prepareStatement(query_insert);
-			ps.setString(1, t.getNombre());
-			ps.setString(2, t.getPassword());
-			ps.setString(3, t.getRol());
+			ps.setInt(1, t.getId_usuario());
+			ps.setString(2, t.getNombre());
+			ps.setString(3, t.getPassword());
+			ps.setString(4, t.getRol());
 			ps.executeUpdate();
 		} catch (SQLException e) {
 		    System.out.println("Error al Insertar "+e.getMessage());

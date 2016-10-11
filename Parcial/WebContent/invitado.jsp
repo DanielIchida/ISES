@@ -9,5 +9,6 @@
 <body>
 <h3>Usuario: Invitado</h3>
 <button>Ver productos</button>
+<p><a href="http://localhost:8105/Parcial/index.jsp">Iniciar Sesion</a></p>
 </body>
 </html>

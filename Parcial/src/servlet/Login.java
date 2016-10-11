@@ -2,12 +2,15 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import modelo.PrivilegiosDaoImpl;
 import modelo.UsuarioDaoImpl;
@@ -36,31 +39,32 @@ public class Login extends HttpServlet {
 		String usuario = request.getParameter("user");
 		String contrasena = request.getParameter("pass");
 		String rol = request.getParameter("rol");
-		if(rol.equals("INVITADO")){
-			request.getRequestDispatcher("invitado.jsp").forward(request, response);
-		}else{
+		HttpSession session = request.getSession(true);
+		session.setAttribute("nombre",usuario);
+		session.setAttribute("rol",rol);
+		session.setAttribute("contra", contrasena);
 			UsuarioDaoImpl daoImpl = new UsuarioDaoImpl();
 			PrivilegiosDaoImpl privilegiosDaoImpl = new PrivilegiosDaoImpl();
 			Usuario usu = new Usuario();
-			usu.setNombre(usuario);
-			usu.setPassword(contrasena);
-			usu.setRol(rol);
+			usu.setNombre((String) session.getAttribute("nombre"));
+			usu.setPassword((String) session.getAttribute("contra"));
+			usu.setRol((String) session.getAttribute("rol"));
 			int id = daoImpl.login(usu);
-			request.setAttribute("nombre",usu.getNombre());
-			request.setAttribute("rol",usu.getRol());
 			if(id != 0){
-				request.setAttribute("id",id);
+				session.setAttribute("id",id);
 				Privilegios pv = privilegiosDaoImpl.getData(id);
-				request.setAttribute("id_pv",pv.getId_privilegio());
-				request.setAttribute("crud",pv.isCrud_usuarios());
-				request.setAttribute("pedidos",pv.isMis_pedidos());
-				request.setAttribute("productos",pv.isProductos());
+				session.setAttribute("id_pv",pv.getId_privilegio());
+				session.setAttribute("crud",pv.isCrud_usuarios());
+				session.setAttribute("pedidos",pv.isMis_pedidos());
+				session.setAttribute("productos",pv.isProductos());
+				if(pv.isCrud_usuarios() == true){
+					List<Usuario> usuarios = daoImpl.getAllData();
+					session.setAttribute("usuarios",usuarios);
+				}
 				request.getRequestDispatcher("perfil.jsp").forward(request, response);
 			}else{
 				request.getRequestDispatcher("error.jsp").forward(request, response);
-			}
-		}
-		
+			}	
 	}
 
 	/**
