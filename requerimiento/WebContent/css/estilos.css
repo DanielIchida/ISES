@@ -1,0 +1,16 @@
+body{
+	background-color: #F44336;
+}
+#reservar-form{
+	color: white;
+	text-align: center;
+}
+#reservar-form select,input[type="datetime-local"]{
+	color: black;
+}
+#reservar-form select,input[type="datetime-local"]{
+	width: 50%;
+}
+#form-reserva{
+	margin: auto;
+}

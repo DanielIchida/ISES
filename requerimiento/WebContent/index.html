@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+<div class="container" id="reservar-form">
+  <h2>Reservas</h2>
+  <form id="form-reserva" method="post">
+    <div class="form-group">
+      <input type="radio" name="radio1" id="r1" value="ida">Ida
+      <input type="radio" name="radio1" id="r2" value="todo">Ida y Vuelta
+    </div>
+    <div class="form-group ida-form">
+      <h4><b>Lugar Ida:</b></h4>
+      <label>Ingresar Departamento</label><br>
+      <select class="depart" id="origDep">
+         <option value="0">Seleccionar</option>
+      </select><br>
+      <label>Ingresar Municipio</label><br>
+      <select name="lugarida" class="municipio" id="origMun">
+         <option value="0">Seleccionar</option>
+      </select>
+    </div>
+    <div class="form-group vuelta-form">
+      <h4><b>Lugar Vuelta:</b></h4>
+      <label>Ingresar Departamento</label><br>
+      <select class="depart" id="vueltDep">
+         <option value="0">Seleccionar</option>
+      </select><br>
+      <label>Ingresar Municipio</label><br>
+      <select  name="lugarvuelt" class="municip" id="vueltMun">
+         <option>Seleccionar</option>
+      </select>
+    </div>
+    <div class="form-group ida-form">
+       <h4><b>Fecha y Hora:</b></h4>
+       <label>Fecha y Hora de ida</label><br>
+       <input type="datetime-local" name="fechaida" id="ida"/>
+    </div>
+     <div class="form-group vuelta-form">
+       <label>Fecha y Hora de vuelta</label><br>
+        <input type="datetime-local" name="fechavuelta" id="vuelta"/>
+    </div>
+    <button type="submit" class="btn btn-default">Enviar</button>
+  </form>
+</div>
+<!-- Modal -->
+<div id="itinerario" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Itinerario</h4>
+      </div>
+      <div class="modal-body">
+          <h5><b>Fecha de ida: </b></h5><p id="idaf"></p>
+          <h5><b>Fecha de vuelta: </b></h5><p id="vueltaf"></p>
+          <h5><b>Lugar de ida: </b></h5><p id="idal" ></p>
+          <h5><b>Lugar de vuelta: </b></h5><p id="vueltal"></p>
+          <h4>Vehiculos disponibles</h4>
+          <ul id="vehiculos">
+             
+          </ul>
+      </div>
+      <div class="modal-footer">
+        
+      </div>
+    </div>
+  </div>
+</div>
+<script src="js/jquery.min.js"></script>
+<script src="js/reservas.js"></script>
+<script src="js/select.js"></script>
+<script src="js/vehiculos.js"></script>
+<script src="js/bootstrap.min.js"></script>
+</body>
+</html>
